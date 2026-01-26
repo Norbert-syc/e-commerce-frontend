@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.topbar {
+  width: 100%;
+  background: #2b6ef3;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.topbar-inner {
+  max-width: 1400px;
+  margin: auto;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  font-size: 13px;
+}
+
+.topbar-left {
+  display: flex;
+  gap: 50px;
+}
+
+.topbar-center {
+  display: flex;
+  gap: 50px;
+}
+
+.topbar-left span,
+.topbar-center span {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.top span {
+  margin-right: 80px;
+  cursor: pointer;
+}
+
+.main-header {
+  width: 100%;
+  background: #2b6ef3;
+  display: block;
+  position: fixed;
+  top: 35px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.main-header-inner {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: bold;
+  cursor: white;
+}
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  padding: 12px;
+}
+
+.search-bar select {
+  border: none;
+  padding: 0 px 10px;
+}
+
+.search-bar button {
+  border: none;
+  background: white;
+  padding: 0px 15px;
+  cursor: pointer;
+}
+
+.header-actions {
+  display: flex;
+  gap: 50px;
+  color: white;
+  align-items: center;
+}
+
+.header-actions div {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.nav-bar {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: block;
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+}
+
+.main-content {
+  margin-top: 180px;
+}
+
+.nav-bar-inner {
+  max-width: 1400px;
+  margin: auto;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-bar-inner span {
+  cursor: pointer;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.departments {
+  font-weight: bold;
+  margin-right: 40px;
+  color: black;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  color: black;
+}
+
+.highlight {
+  color: red;
+  font-weight: bold;
+}
