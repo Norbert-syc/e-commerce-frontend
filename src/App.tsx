@@ -18,6 +18,7 @@ import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer";
 import "./App.css";
 import TopBar from "./components/header/TopBar";
+import SignUp from "./pages/SignUp";
 
 function App() {
   const [cartItems, setCartItems] = useState<any[]>([]);
@@ -68,6 +69,7 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
       <Footer />
     </Router>
