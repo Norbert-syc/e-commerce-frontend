@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Search, ShoppingCart, User } from "lucide-react";
 
 interface MainHeaderProps {
   cartItemsCount?: number;
@@ -44,7 +45,7 @@ const MainHeader = ({ cartItemsCount = 0 }: MainHeaderProps) => {
             <option>Bags & Backpacks</option>
             <option>Lingerie & Nightwear</option>
           </select>
-          <button type="submit">🔍</button>
+          <button type="submit"><Search size={16} /></button>
         </form>
 
         <div className="header-actions">
@@ -52,11 +53,11 @@ const MainHeader = ({ cartItemsCount = 0 }: MainHeaderProps) => {
             to="/signin"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <div>👤 HELLO, SIGN IN</div>
+            <div><User size={16} /> HELLO, SIGN IN</div>
           </Link>
           <Link to="/cart" style={{ textDecoration: "none", color: "inherit" }}>
             <div>
-              🛒 Cart {cartItemsCount > 0 ? `(${cartItemsCount})` : "$0.00"}
+              <ShoppingCart size={16} /> Cart {cartItemsCount > 0 ? `(${cartItemsCount})` : "$0.00"}
             </div>
           </Link>
         </div>

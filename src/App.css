@@ -95,16 +95,20 @@ body,
   flex: 1;
   border: none;
   padding: 12px;
+  background: white;
+  color:black
 }
 
 .search-bar select {
   border: none;
   padding: 0 px 10px;
+  background: white;
+  color:gray
 }
 
 .search-bar button {
   border: none;
-  background: white;
+  background: #2b6ef3;
   padding: 0px 15px;
   cursor: pointer;
 }
@@ -167,6 +171,7 @@ body,
   display: flex;
   list-style: none;
   gap: 20px;
+  color: black;
 }
 
 .nav-links li {
