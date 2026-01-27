@@ -11,7 +11,7 @@ const TopBar = () => {
           <span>🏪 WELCOME TO OUR STORE!</span>
           <span>📰 BLOG</span>
           <span>❓ FAQ</span>
-          <span>📧 CONTACT US</span>
+          <a href="/contact">📧 CONTACT US</a>
         </div>
       </div>
     </div>

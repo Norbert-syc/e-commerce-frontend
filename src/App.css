@@ -178,3 +178,7 @@ body,
   color: red;
   font-weight: bold;
 }
+
+.topbar-center a{
+  color:white
+}
