@@ -1,20 +1,32 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
+import { signIn } from "../services/authService";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignIn = (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple validation
-    if (email && password) {
+    
+    if (!email || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    
+    try {
+      const response = await signIn({ email, password });
+      localStorage.setItem("token", response.data.token);
       alert("Sign in successful!");
       navigate("/");
+    } catch (error) {
+      alert("Sign in failed. Please check your credentials and try again.");
     }
   };
+
+
 
   return (
     <div className="auth-container main-content">

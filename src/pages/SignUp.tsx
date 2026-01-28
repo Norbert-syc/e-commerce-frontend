@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Auth.css"; 
+import "./Auth.css";
+import { signUp } from "../services/authService";
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -9,17 +10,25 @@ const SignUp = () => {
     
     const navigate = useNavigate();
 
-    const handleSignUp = (e: React.FormEvent) => {
+    const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!name || !email || !password) {
             alert("Please fill in all fields.");
             return;
-        }   
-
-        alert("Sign up successful!");
-        navigate("/signin");
+        }
+        
+        try {
+            await signUp({ name, email, password });
+            alert("Sign up successful! Please sign in.");
+            navigate("/signin");
+        } catch (error: any) {
+            console.error("Sign up error:", error);
+            const errorMessage = error.response?.data?.message || error.message || "Sign up failed. Please try again.";
+            alert(errorMessage);
+        }
     };
+
 
     return (
         <div className="auth-container main-content">
