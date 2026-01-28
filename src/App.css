@@ -172,6 +172,7 @@ body,
   list-style: none;
   gap: 20px;
   color: black;
+  text-decoration: solid;
 }
 
 .nav-links li {
