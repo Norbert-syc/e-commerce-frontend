@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
-import { products } from "../data/product";
+import { useEffect, useState } from "react";
 import ProductCard from "./productCard";
+import { getProducts } from "../api/productService";
 import "./productList.css";
 
 const FeaturedProducts = () => {
-  // Get featured products (first 5 products or those with discount)
-  const featuredProducts = products.filter((p) => p.discountPrice).slice(0, 5);
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    getProducts().then(setProducts).catch(console.error);
+  }, []);
+
+  // example rule for featured
+  const featuredProducts = products.slice(0, 5);
 
   return (
     <section className="featured-products-section">
@@ -19,7 +26,7 @@ const FeaturedProducts = () => {
 
         <div className="products-grid">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>

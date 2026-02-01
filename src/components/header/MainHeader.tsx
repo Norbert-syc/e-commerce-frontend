@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Search, ShoppingCart, User } from "lucide-react";
+import { Search, ShoppingCart, User, LogOut } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface MainHeaderProps {
   cartItemsCount?: number;
@@ -10,6 +11,7 @@ interface MainHeaderProps {
 const MainHeader = ({ cartItemsCount = 0 }: MainHeaderProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,12 +51,32 @@ const MainHeader = ({ cartItemsCount = 0 }: MainHeaderProps) => {
         </form>
 
         <div className="header-actions">
-          <Link
-            to="/signin"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <div><User size={16} /> HELLO, SIGN IN</div>
-          </Link>
+          {isAuthenticated ? (
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div><User size={16} /> HELLO, {user?.name.toUpperCase()}</div>
+              <button 
+                onClick={logout}
+                style={{ 
+                  background: "none", 
+                  border: "none", 
+                  color: "inherit", 
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px"
+                }}
+              >
+                <LogOut size={16} /> LOGOUT
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/signin"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <div><User size={16} /> HELLO, SIGN IN</div>
+            </Link>
+          )}
           <Link to="/cart" style={{ textDecoration: "none", color: "inherit" }}>
             <div>
               <ShoppingCart size={16} /> Cart {cartItemsCount > 0 ? `(${cartItemsCount})` : "$0.00"}

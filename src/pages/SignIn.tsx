@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "./Auth.css";
 import { signIn } from "../services/authService";
 
@@ -7,6 +8,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const SignIn = () => {
     try {
       const response = await signIn({ email, password });
       localStorage.setItem("token", response.data.token);
+      login(response.data.user);
       alert("Sign in successful!");
       navigate("/");
     } catch (error) {

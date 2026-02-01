@@ -16,11 +16,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
       <div className="product-card">
-        {discountPercentage > 0 && (
+        {discountPercentage > 0 && (  
           <div className="product-badge featured">{`${discountPercentage}% OFF`}</div>
         )}
         <div className="product-image">
-          <img src={product.images[0]} alt={product.name} />
+          <img src={product.image} alt={product.name} />
           <button className="wishlist-btn">♥</button>
         </div>
         <div className="product-info">

@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { AuthProvider } from "./contexts/AuthContext";
 import Header from "./components/header/Header";
 import MainHeader from "./components/header/MainHeader";
 import NavBar from "./components/header/NavBar";
 import Hero from "./components/hero/Hero";
 import CategoryList from "./components/categoryList";
 import FeaturedProducts from "./components/productList";
-import AllProducts from "./components/AllProducts";
+import Shop from "./components/Shop";
 import ProductDetails from "./pages/ProductDetails";
 import SearchResults from "./pages/SearchResults";
 import Cart from "./pages/Cart";
@@ -25,7 +26,8 @@ function App() {
   const [wishlistItems, setWishlistItems] = useState<any[]>([]);
 
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <TopBar />
       <Header />
       <MainHeader
@@ -44,7 +46,7 @@ function App() {
             </div>
           }
         />
-        <Route path="/shop" element={<AllProducts />} />
+        <Route path="/shop" element={<Shop />} />
         <Route
           path="/product/:id"
           element={
@@ -54,7 +56,7 @@ function App() {
           }
         />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/category/:category" element={<AllProducts />} />
+        <Route path="/category/:category" element={<Shop />} />
         <Route
           path="/cart"
           element={<Cart items={cartItems} setItems={setCartItems} />}
@@ -73,6 +75,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 }
 

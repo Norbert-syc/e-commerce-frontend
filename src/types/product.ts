@@ -1,12 +1,9 @@
-export interface product {
-    
-  id: number;   
+export interface Product {
+  _id: string;
   name: string;
-  slug: string;
   price: number;
-  discountPrice?: number;
-  images: string[];
-  category: string;
-  rating: number;
-  inStock: boolean;
+  description?: string;
+  image: string;
+  categoryId: string;
+  quantity: number;
 }

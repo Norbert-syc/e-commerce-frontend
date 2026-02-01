@@ -1,7 +1,32 @@
-import { categories } from "../data/category";
+import {useEffect, useState}from "react";
+import api from "../api/axios";
 import "./categoryList.css";
 
+
+interface category{
+  id:string;
+  name:string;
+  image:string;
+}
+
+
 const CategoryList = () => {
+  const [categories, setCategories] = useState<category[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/categories");
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+  if (loading) return <p>Loading categories...</p>
   return (
     <section className="category-section">
       <div className="category-wrapper">

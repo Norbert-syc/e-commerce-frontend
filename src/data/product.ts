@@ -1,6 +1,6 @@
-import type { product } from "../types/product";
+import type { Product } from "../types/product";
 
-export const products: product[] = [
+export const products: Product[] = [
   {
     id: 1,
     name: "Men Hooded Navy Blue & Grey Sweatshirt",
