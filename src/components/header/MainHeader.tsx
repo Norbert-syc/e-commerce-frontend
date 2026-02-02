@@ -2,16 +2,18 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Search, ShoppingCart, User, LogOut } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useCart } from "../../contexts/CartContext";
 
 interface MainHeaderProps {
   cartItemsCount?: number;
   onAddToCart?: (item: any) => void;
 }
 
-const MainHeader = ({ cartItemsCount = 0 }: MainHeaderProps) => {
+const MainHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const { user, logout, isAuthenticated } = useAuth();
+  const { cartCount } = useCart();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +81,7 @@ const MainHeader = ({ cartItemsCount = 0 }: MainHeaderProps) => {
           )}
           <Link to="/cart" style={{ textDecoration: "none", color: "inherit" }}>
             <div>
-              <ShoppingCart size={16} /> Cart {cartItemsCount > 0 ? `(${cartItemsCount})` : "$0.00"}
+              <ShoppingCart size={16} /> Cart {cartCount > 0 ? `(${cartCount})` : "$0.00"}
             </div>
           </Link>
         </div>

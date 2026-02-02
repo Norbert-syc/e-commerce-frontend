@@ -1,20 +1,44 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { products } from "../data/product";
+import { useState, useEffect } from "react";
+import { getProductById } from "../api/productService";
+import { addToCart } from "../api/cartService";
+import { useCart } from "../contexts/CartContext";
+import type { Product } from "../types/product";
 import "./ProductDetails.css";
 
 interface ProductDetailsProps {
   onAddToCart?: (item: any) => void;
 }
 
-const ProductDetails = ({ onAddToCart }: ProductDetailsProps) => {
+const ProductDetails = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id || ""));
-
+  const { updateCartCount } = useCart();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
-  const [mainImage, setMainImage] = useState(product?.images[0] || "");
+  const [mainImage, setMainImage] = useState("");
+
+  useEffect(() => {
+    if (id) {
+      getProductById(id)
+        .then((data) => {
+          setProduct(data);
+          setMainImage(data.image);
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    }
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="product-details-container">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -24,25 +48,26 @@ const ProductDetails = ({ onAddToCart }: ProductDetailsProps) => {
     );
   }
 
-  const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart({
-        ...product,
+  const handleAddToCart = async () => {
+    if (!product) return;
+    
+    try {
+      await addToCart({
+        productId: product._id,
+        quantity,
         selectedColor,
         selectedSize,
-        quantity,
       });
+      updateCartCount();
       alert(`${product.name} added to cart!`);
+    } catch (error) {
+      console.error('Failed to add to cart:', error);
+      alert('Failed to add to cart. Please try again.');
     }
   };
 
-  const discountPercentage = product.discountPrice
-    ? Math.round(
-        ((product.price - product.discountPrice) / product.price) * 100,
-      )
-    : 0;
-
-  const displayPrice = product.discountPrice || product.price;
+  const discountPercentage = 0; // Backend data doesn't have discount info
+  const displayPrice = product.price;
 
   const colors = ["#2E5BFF", "#808080", "#8B0000"];
   const sizes = ["S", "M", "L", "XL"];
@@ -59,20 +84,13 @@ const ProductDetails = ({ onAddToCart }: ProductDetailsProps) => {
         <div className="product-images-section">
           <div className="main-image-container">
             <img src={mainImage} alt={product.name} className="main-image" />
-            {discountPercentage > 0 && (
-              <div className="featured-badge">{discountPercentage}% Off</div>
-            )}
           </div>
           <div className="thumbnail-images">
-            {product.images.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`${product.name} ${index + 1}`}
-                className={`thumbnail ${mainImage === img ? "active" : ""}`}
-                onClick={() => setMainImage(img)}
-              />
-            ))}
+            <img
+              src={product.image}
+              alt={product.name}
+              className="thumbnail active"
+            />
           </div>
         </div>
 
@@ -82,22 +100,14 @@ const ProductDetails = ({ onAddToCart }: ProductDetailsProps) => {
 
           <div className="rating-section">
             <span className="stars">★★★★★</span>
-            <span className="rating-value">{product.rating}</span>
+            <span className="rating-value">4.5</span>
           </div>
 
           <div className="price-section">
             <span className="current-price">${displayPrice.toFixed(2)}</span>
-            {product.discountPrice && (
-              <>
-                <span className="original-price">
-                  ${product.price.toFixed(2)}
-                </span>
-                <span className="discount-info">{discountPercentage}% Off</span>
-              </>
-            )}
           </div>
 
-          <div className="stock-status in-stock">✓ In Stock</div>
+          <div className="stock-status in-stock">✓ {product.quantity > 0 ? 'In Stock' : 'Out of Stock'}</div>
 
           <div className="offers-section">
             <div className="offer-item">

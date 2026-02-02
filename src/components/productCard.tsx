@@ -14,7 +14,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   return (
-    <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
+    <Link to={`/product/${product._id}`} style={{ textDecoration: "none" }}>
       <div className="product-card">
         {discountPercentage > 0 && (  
           <div className="product-badge featured">{`${discountPercentage}% OFF`}</div>

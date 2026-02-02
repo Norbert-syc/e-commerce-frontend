@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
 import Header from "./components/header/Header";
 import MainHeader from "./components/header/MainHeader";
 import NavBar from "./components/header/NavBar";
@@ -27,13 +28,11 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router>
+      <CartProvider>
+        <Router>
       <TopBar />
       <Header />
-      <MainHeader
-        cartItemsCount={cartItems.length}
-        onAddToCart={(item) => setCartItems([...cartItems, item])}
-      />
+      <MainHeader />
       <NavBar />
       <Routes>
         <Route
@@ -49,17 +48,13 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route
           path="/product/:id"
-          element={
-            <ProductDetails
-              onAddToCart={(item) => setCartItems([...cartItems, item])}
-            />
-          }
+          element={<ProductDetails />}
         />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/category/:category" element={<Shop />} />
         <Route
           path="/cart"
-          element={<Cart items={cartItems} setItems={setCartItems} />}
+          element={<Cart />}
         />
         <Route
           path="/wishlist"
@@ -75,6 +70,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }
