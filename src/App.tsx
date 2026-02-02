@@ -21,6 +21,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 import TopBar from "./components/header/TopBar";
 import SignUp from "./pages/SignUp";
+import Dashboard from "./admin/pages/Dashboard";
 
 function App() {
   const [cartItems, setCartItems] = useState<any[]>([]);
@@ -67,6 +68,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/admin" element={<Dashboard />} />
       </Routes>
       <Footer />
     </Router>
