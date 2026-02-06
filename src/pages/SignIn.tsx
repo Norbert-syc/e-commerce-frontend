@@ -24,8 +24,10 @@ const SignIn = () => {
       login(response.data.user);
       alert("Sign in successful!");
       navigate("/");
-    } catch (error) {
-      alert("Sign in failed. Please check your credentials and try again.");
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Sign in failed. Please check your credentials and try again.";
+      alert(errorMessage);
+      console.error('Sign in error:', error.response?.data);
     }
   };
 
