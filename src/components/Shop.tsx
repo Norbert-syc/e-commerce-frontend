@@ -24,7 +24,7 @@ const Shop = () => {
         selectedCategory === "All" || product.category === selectedCategory;
 
       const ratingMatch =
-        selectedRating === 0 || product.rating >= selectedRating;
+        selectedRating === 0 || (product.rating !== undefined && product.rating >= selectedRating);
 
       return categoryMatch && ratingMatch;
     });

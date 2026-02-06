@@ -6,10 +6,6 @@ import { useCart } from "../contexts/CartContext";
 import type { Product } from "../types/product";
 import "./ProductDetails.css";
 
-interface ProductDetailsProps {
-  onAddToCart?: (item: any) => void;
-}
-
 const ProductDetails = () => {
   const { id } = useParams();
   const { updateCartCount } = useCart();
@@ -25,7 +21,9 @@ const ProductDetails = () => {
       getProductById(id)
         .then((data) => {
           setProduct(data);
-          setMainImage(data.image);
+          setMainImage(data.image || '');
+          setSelectedColor('');
+          setSelectedSize('');
         })
         .catch(console.error)
         .finally(() => setLoading(false));
@@ -49,7 +47,7 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = async () => {
-    if (!product) return;
+    if (!product || !product._id) return;
     
     try {
       await addToCart({
@@ -66,7 +64,6 @@ const ProductDetails = () => {
     }
   };
 
-  const discountPercentage = 0; // Backend data doesn't have discount info
   const displayPrice = product.price;
 
   const colors = ["#2E5BFF", "#808080", "#8B0000"];
@@ -107,7 +104,7 @@ const ProductDetails = () => {
             <span className="current-price">${displayPrice.toFixed(2)}</span>
           </div>
 
-          <div className="stock-status in-stock">✓ {product.quantity > 0 ? 'In Stock' : 'Out of Stock'}</div>
+          <div className="stock-status in-stock">✓ {(product.quantity !== undefined && product.quantity > 0) ? 'In Stock' : 'Out of Stock'}</div>
 
           <div className="offers-section">
             <div className="offer-item">

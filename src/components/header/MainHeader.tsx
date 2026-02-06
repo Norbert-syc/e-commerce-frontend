@@ -4,11 +4,6 @@ import { Search, ShoppingCart, User, LogOut } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useCart } from "../../contexts/CartContext";
 
-interface MainHeaderProps {
-  cartItemsCount?: number;
-  onAddToCart?: (item: any) => void;
-}
-
 const MainHeader = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();

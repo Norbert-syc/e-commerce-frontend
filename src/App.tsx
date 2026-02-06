@@ -29,7 +29,6 @@ import CartsPage from "./admin/pages/CartsPage";
 import OrdersPage from "./admin/pages/OrdersPage";
 
 function AppContent() {
-  const [cartItems, setCartItems] = useState<any[]>([]);
   const [wishlistItems, setWishlistItems] = useState<any[]>([]);
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
