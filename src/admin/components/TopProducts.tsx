@@ -1,11 +1,18 @@
+import { useState, useEffect } from 'react';
+import { getProducts } from '../../api/productService';
+import type { Product } from '../../types/product';
+
 const TopProducts = () => {
-  const products = [
-    { name: 'Everyone 01', price: '$17,078', image: '👕', category: 'Clothing' },
-    { name: 'YWS Earphone M4', price: '$17,078', image: '🎧', category: 'Electronics' },
-    { name: 'Yira Rib 03', price: '$17,078', image: '👔', category: 'Clothing' },
-    { name: 'Yira Smartphone', price: '$17,078', image: '📱', category: 'Electronics' },
-    { name: 'YWS Earphone 02', price: '$17,078', image: '🎧', category: 'Electronics' }
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    const data = await getProducts();
+    setProducts(data.slice(0, 5));
+  };
 
   return (
     <div className="products-card">
@@ -15,14 +22,21 @@ const TopProducts = () => {
       </div>
       
       <div className="products-list">
-        {products.map((product, index) => (
-          <div key={index} className="product-item">
-            <div className="product-image">{product.image}</div>
+        {products.map((product) => (
+          <div key={product._id || product.id} className="product-item">
+            <div className="product-image">
+              {product.image ? (
+                <img src={product.image} alt={product.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+              ) : '📦'}
+            </div>
             <div className="product-details">
               <div className="product-name">{product.name}</div>
-              <div className="product-category">{product.category}</div>
+              <div className="product-category">
+                {typeof product.category === 'string' ? product.category : 
+                 typeof product.categoryId === 'string' ? product.categoryId : 'N/A'}
+              </div>
             </div>
-            <div className="product-price">{product.price}</div>
+            <div className="product-price">${product.price}</div>
           </div>
         ))}
       </div>

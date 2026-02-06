@@ -1,6 +1,10 @@
 export interface category {
-  id: number;
+  _id?: string;
+  id?: number;
   name: string;
-  slug: string;
-
+  slug?: string;
+  description?: string;
+  image?: string;
 }
+
+export type Category = category;

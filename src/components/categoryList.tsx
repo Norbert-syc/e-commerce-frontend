@@ -1,5 +1,5 @@
 import {useEffect, useState}from "react";
-import api from "../api/axios";
+import { getCategories } from "../api/categoryService";
 import "./categoryList.css";
 
 
@@ -16,8 +16,8 @@ const CategoryList = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await api.get("/categories");
-        setCategories(response.data);
+        const response = await getCategories();
+        setCategories(response as any);
       } catch (error) {
         console.error("Error fetching categories:", error);
       } finally {
@@ -27,6 +27,7 @@ const CategoryList = () => {
     fetchCategories();
   }, []);
   if (loading) return <p>Loading categories...</p>
+  if (categories.length === 0) return null;
   return (
     <section className="category-section">
       <div className="category-wrapper">

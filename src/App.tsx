@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
@@ -22,19 +22,28 @@ import "./App.css";
 import TopBar from "./components/header/TopBar";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./admin/pages/Dashboard";
+import CategoriesPage from "./admin/pages/CategoriesPage";
+import ProductsPage from "./admin/pages/ProductsPage";
+import AdminLogin from "./admin/pages/AdminLogin";
+import CartsPage from "./admin/pages/CartsPage";
+import OrdersPage from "./admin/pages/OrdersPage";
 
-function App() {
+function AppContent() {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [wishlistItems, setWishlistItems] = useState<any[]>([]);
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
-      <TopBar />
-      <Header />
-      <MainHeader />
-      <NavBar />
+    <>
+      {!isAdminRoute && (
+        <>
+          <TopBar />
+          <Header />
+          <MainHeader />
+          <NavBar />
+        </>
+      )}
       <Routes>
         <Route
           path="/"
@@ -68,10 +77,25 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/categories" element={<CategoriesPage />} />
+        <Route path="/admin/products" element={<ProductsPage />} />
+        <Route path="/admin/carts" element={<CartsPage />} />
+        <Route path="/admin/orders" element={<OrdersPage />} />
       </Routes>
-      <Footer />
-    </Router>
+      {!isAdminRoute && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <CartProvider>
+        <Router>
+          <AppContent />
+        </Router>
       </CartProvider>
     </AuthProvider>
   );

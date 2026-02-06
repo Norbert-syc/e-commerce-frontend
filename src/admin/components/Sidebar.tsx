@@ -57,9 +57,9 @@ const Sidebar = ({ activeSection, setActiveSection }: SidebarProps) => {
         })}
         
         <div className="user-profile">
-          <div className="user-avatar">JD</div>
+          <div className="user-avatar">NN</div>
           <div className="user-info">
-            <div className="user-name">John Doe</div>
+            <div className="user-name">Norbs N</div>
             <div className="user-role">Administrator</div>
           </div>
         </div>
