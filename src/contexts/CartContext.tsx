@@ -27,7 +27,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const updateCartCount = async () => {
     try {
       const cartData = await getCart();
-      const totalItems = cartData.items?.reduce((sum: number, item: any) => sum + item.quantity, 0) || 0;
+      const totalItems = cartData.items?.length || 0;
       setCartCount(totalItems);
     } catch (error) {
       console.error('Failed to fetch cart count:', error);

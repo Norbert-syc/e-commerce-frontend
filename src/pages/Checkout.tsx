@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getCart } from "../api/cartService";
+import { getCart, clearCart } from "../api/cartService";
+import { useCart } from "../contexts/CartContext";
 import api from "../api/axios";
 import "./Checkout.css";
 
@@ -19,6 +20,7 @@ const Checkout = () => {
     country: ""
   });
   const navigate = useNavigate();
+  const { updateCartCount } = useCart();
 
   useEffect(() => {
     fetchCart();
@@ -70,6 +72,9 @@ const Checkout = () => {
       };
 
       await api.post('/orders', orderData);
+
+      await clearCart();
+      updateCartCount();
 
       alert('Order placed successfully!');
       navigate('/');
