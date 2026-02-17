@@ -33,6 +33,9 @@ export const removeFromCart = async (productId: string) => {
 };
 
 export const clearCart = async () => {
-  const response = await api.delete(`/carts`);
-  return response.data;
+  const cart = await getCart();
+  const deletePromises = cart.items?.map((item: any) => 
+    removeFromCart(item.productId?._id || item.productId)
+  ) || [];
+  await Promise.all(deletePromises);
 };

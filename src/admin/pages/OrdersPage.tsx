@@ -39,8 +39,10 @@ const OrdersPage = () => {
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     try {
       await api.put(`/orders/${orderId}/status`, { status: newStatus });
-      fetchOrders();
-      alert("Order status updated!");
+      setOrders(orders.map(order => 
+        order._id === orderId ? { ...order, status: newStatus } : order
+      ));
+      alert("Order status updated! Customer will see the change.");
     } catch (error) {
       alert("Failed to update order status");
     }
@@ -54,7 +56,11 @@ const OrdersPage = () => {
       fetchOrders();
       alert('Order deleted!');
     } catch (error: any) {
-      alert('Failed to delete order: ' + (error.response?.data?.message || error.message));
+      if (error.response?.status === 404) {
+        alert('Delete endpoint not implemented yet. Contact backend developer.');
+      } else {
+        alert('Failed to delete order: ' + (error.response?.data?.message || error.message));
+      }
     }
   };
 

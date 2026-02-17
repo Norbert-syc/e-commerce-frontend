@@ -17,6 +17,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Wishlist from "./pages/Wishlist";
 import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
 import Footer from "./components/Footer";
 import "./App.css";
 import TopBar from "./components/header/TopBar";
@@ -27,6 +28,7 @@ import ProductsPage from "./admin/pages/ProductsPage";
 import AdminLogin from "./admin/pages/AdminLogin";
 import CartsPage from "./admin/pages/CartsPage";
 import OrdersPage from "./admin/pages/OrdersPage";
+import ProtectedRoute from "./admin/components/ProtectedRoute";
 
 function AppContent() {
   const [wishlistItems, setWishlistItems] = useState<any[]>([]);
@@ -72,16 +74,17 @@ function AppContent() {
           }
         />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/categories" element={<CategoriesPage />} />
-        <Route path="/admin/products" element={<ProductsPage />} />
-        <Route path="/admin/carts" element={<CartsPage />} />
-        <Route path="/admin/orders" element={<OrdersPage />} />
+        <Route path="/admin" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/admin/categories" element={<ProtectedRoute><CategoriesPage /></ProtectedRoute>} />
+        <Route path="/admin/products" element={<ProtectedRoute><ProductsPage /></ProtectedRoute>} />
+        <Route path="/admin/carts" element={<ProtectedRoute><CartsPage /></ProtectedRoute>} />
+        <Route path="/admin/orders" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
       </Routes>
       {!isAdminRoute && <Footer />}
     </>

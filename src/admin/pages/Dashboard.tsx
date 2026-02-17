@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FolderOpen, Package, ShoppingCart, FileText } from 'lucide-react';
 import Sidebar from '../components/Sidebar';
 import DashboardStats from '../components/DashboardStats';
 import RevenueChart from '../components/RevenueChart';
@@ -57,7 +58,9 @@ const Dashboard = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
           <div style={{ padding: '20px', background: '#fff', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
-              <div style={{ fontSize: '32px', background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>📦</div>
+              <div style={{ background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>
+                <FolderOpen size={32} color="#9333ea" />
+              </div>
               <div>
                 <h3 style={{ margin: 0, fontSize: '14px', color: '#666' }}>Categories</h3>
                 <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '5px 0', color: '#333' }}>{categoriesCount}</p>
@@ -73,7 +76,9 @@ const Dashboard = () => {
           
           <div style={{ padding: '20px', background: '#fff', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
-              <div style={{ fontSize: '32px', background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>🛍️</div>
+              <div style={{ background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>
+                <Package size={32} color="#9333ea" />
+              </div>
               <div>
                 <h3 style={{ margin: 0, fontSize: '14px', color: '#666' }}>Products</h3>
                 <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '5px 0', color: '#333' }}>{productsCount}</p>
@@ -89,7 +94,9 @@ const Dashboard = () => {
 
           <div style={{ padding: '20px', background: '#fff', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
-              <div style={{ fontSize: '32px', background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>🛒</div>
+              <div style={{ background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>
+                <ShoppingCart size={32} color="#9333ea" />
+              </div>
               <div>
                 <h3 style={{ margin: 0, fontSize: '14px', color: '#666' }}>Carts</h3>
                 <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '5px 0', color: '#333' }}>{cartsCount}</p>
@@ -105,7 +112,9 @@ const Dashboard = () => {
 
           <div style={{ padding: '20px', background: '#fff', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
-              <div style={{ fontSize: '32px', background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>📋</div>
+              <div style={{ background: '#f0f0f0', padding: '10px', borderRadius: '8px' }}>
+                <FileText size={32} color="#9333ea" />
+              </div>
               <div>
                 <h3 style={{ margin: 0, fontSize: '14px', color: '#666' }}>Orders</h3>
                 <p style={{ fontSize: '28px', fontWeight: 'bold', margin: '5px 0', color: '#333' }}>{ordersCount}</p>

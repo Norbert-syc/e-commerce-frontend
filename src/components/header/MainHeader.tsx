@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Search, ShoppingCart, User, LogOut } from "lucide-react";
+import { Search, ShoppingCart, User, LogOut, Package } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useCart } from "../../contexts/CartContext";
 
@@ -74,6 +74,11 @@ const MainHeader = () => {
               <div><User size={16} /> HELLO, SIGN IN</div>
             </Link>
           )}
+          <Link to="/orders" style={{ textDecoration: "none", color: "inherit" }}>
+            <div>
+              <Package size={16} /> Orders
+            </div>
+          </Link>
           <Link to="/cart" style={{ textDecoration: "none", color: "inherit" }}>
             <div>
               <ShoppingCart size={16} /> Cart {cartCount > 0 ? `(${cartCount})` : "$0.00"}
